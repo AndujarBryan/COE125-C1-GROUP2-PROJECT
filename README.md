@@ -11,7 +11,7 @@ To be able to know and construct a system model for an object class from a set o
 
 The program will be able to detect what type of object is being fed to the camera. The program can only objects from a live web camera preview.
 
-## Delimitaions
+## Delimitations
 
 The program does not allow images as inputs. The program cannot detect the colors of objects. 
 
