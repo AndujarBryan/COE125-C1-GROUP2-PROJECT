@@ -1,36 +1,20 @@
-# Object Classifier
+# **Object Detection Classifier in Windows 10**
 
-The program will be able to determine what object is placed in front of the camera, wherein a web camera is used as the input device where the information coming from this device will be processed in order to achieve the first objective of the program.
+## Purpose
+The project is supposed to make use of the capabilities of modern machine along with a camera in order to process, learn, and identify an object on its own. By doing so, we would be able to provide a useful software in which it would be a great use for image processing and for projects that involves machine learning, face detection, and tracking. 
 
-The creators of this project would like to attain the following goals:
+## Scope/s
+The project does not work on mac OS and it might require a good laptop specification in order to work properly. The program can only accept live data as input and cannot process images for detection.
 
-To identify what object is placed in front of the camera by detecting instances of objects from a particular class in an image. 
-To be able to know and construct a system model for an object class from a set of training examples.
+## Overview/s
+The group would like to create a program that can detect an object and classify it with a label using TensorFlow, which is used for machine learning applications such as neural networks. The program will be written and implanted using Python. The program can only accept live data as input, which means that it cannot detect object when the input is an image.
 
-## Scopes
+## Basic Functional Requirement/s
+- The program makes use of a camera. 
+- It should be able to identify objects even if they are partially covered. 
+- Must be able to learn new objects by giving it reference images for the program to learn. 
+- The project should be scalable meaning additional hardware should be easy to integrate.
 
-The program will be able to detect what type of object is being fed to the camera. The program can only objects from a live web camera preview.
-
-## Delimitations
-
-The program does not allow images as inputs. The program cannot detect the colors of objects. 
-
-### The following are the basic fundamental requirements needed in the project which is divided into two kinds of requirements, those being the interface requirements and regulatory requirements, respectively:
-
-## Interface Requirements
-
-1. Accepts images as an entry.
-2. Can detect the name of the objects.
-3. Label the objects with its accurate name.
-
-## Regulatory Requirements
-
-1. The object detector will limit the image used to a readable quality.
-2. The text file will contain labels for detection.
-
-### The following are the basic non-fundamental requirements that are needed to be satisfied for the said program:
-
-## Web camera requirements:
-
-The clarity which the camera will be able to detect the given image. Stable and non-moving/blurred image will be required. Specific resolution of the camera enables higher performance in image detection
-
+## Basic Non-Functional Requirement/s
+- Must run on Windows or Linux with compatible hardware. 
+- Implemented using Python. 
