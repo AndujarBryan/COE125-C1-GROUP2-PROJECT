@@ -86,7 +86,6 @@ Password: noot
 ```
 Then, the object detection classifier program is ready.
 
-
 ## Sample Outputs
 
 Able to detect book:

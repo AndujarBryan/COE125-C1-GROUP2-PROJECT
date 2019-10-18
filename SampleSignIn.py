@@ -6,13 +6,16 @@
 #
 # WARNING! All changes made in this file will be lost!
 
+import sqlite3 as sq
 
-from PyQt5 import QtCore, QtGui, QtWidgets
+from PyQt5 import QtCore, QtGui, QtWidgets,uic
+from PyQt5.QtWidgets import QMessageBox 
 from SampleSignUp import Ui_SignUp
+import os
 
 import sys
-
-
+import bgi
+        
 class Ui_LogIn(object):
     def setupUi(self, LogIn):
         LogIn.setObjectName("LogIn")
@@ -51,17 +54,26 @@ class Ui_LogIn(object):
         self.SignInPassword.setGeometry(QtCore.QRect(120, 200, 241, 31))
         self.SignInPassword.setObjectName("SignInPassword")
         self.SignInPassword.setEchoMode(QtWidgets.QLineEdit.Password)
+        self.SignInSignIn.setStyleSheet("background-color: pink;")
+        self.SignInUsername.setStyleSheet("background-color: pink;")
+        self.SignInPassword.setStyleSheet("background-color: pink;")
+        self.SignInSignUp.setStyleSheet("background-color: pink;")
+        LogIn.setStyleSheet("background-color: blue;")
+        
+        self.SignUp = QtWidgets.QWidget()
+        self.uiSignUp = Ui_SignUp()
+        self.uiSignUp.setupUi(self.SignUp)
 
         self.retranslateUi(LogIn)
         QtCore.QMetaObject.connectSlotsByName(LogIn)
 
     def retranslateUi(self, LogIn):
         _translate = QtCore.QCoreApplication.translate
-        LogIn.setWindowTitle(_translate("LogIn", "Sample Log In"))
+        LogIn.setWindowTitle(_translate("LogIn", "Log In"))
         self.SignInSignIn.setText(_translate("LogIn", "Sign In"))
         self.label.setText(_translate("LogIn", "Username :"))
         self.label_2.setText(_translate("LogIn", "Password : "))
-        self.label_3.setText(_translate("LogIn", "   Sample Log In"))
+        self.label_3.setText(_translate("LogIn", "   Welcome User!"))
         self.label_4.setText(_translate("LogIn", "No account yet? click sign up : "))
         self.SignInSignUp.setText(_translate("LogIn", "Sign Up"))
         self.SignInSignIn.clicked.connect(self.logIn)
@@ -70,11 +82,56 @@ class Ui_LogIn(object):
     def logIn(self):
         Username = self.SignInUsername.text().strip()
         Password = self.SignInPassword.text().strip()
+        value = False
+        
+        if Username == 0 or Password == 0:
+            value = False
+            '''  mess = QMessageBox()
+            mess.setIcon(QMessageBox.Information)
+            
+            mess.setText("Cannot accept blank inputs")
+            mess.setWindowTitle("Input error")
+            mess.setStandardButtons(QMessageBox.Ok)
+            mess.exec()'''
+        else:
+            connection = sq.connect("acc.db")
+            con = connection.cursor()
+            con.execute("SELECT accountid,fname,lname FROM accounts WHERE username = ? and password = ?",(Username,Password))
+            userdata = con.fetchone()
+            connection.close()
+            if userdata is None:
+                 '''
+                 mess = QMessageBox()
+                 mess.setIcon(QMessageBox.Critical)
+                 mess.setText("You failed to login! Wrong Username/Password")
+                 mess.setWindowTitle("Error")
+                 mess.setStandardButtons(QMessageBox.Ok)
+                 mess.exec()
+                 '''
+                 value = False
+            else:
+                value = True
+        if value is True: 
+            mess = QMessageBox()
+            mess.setIcon(QMessageBox.Information) 
+            mess.setText("Log In Successful!")
+            mess.setWindowTitle("LogIn")
+            mess.setStandardButtons(QMessageBox.Ok)
+            mess.exec()     
+            os.system('python objectdetectionimagewebcam.py')
+            self.close()
+        
+        else:
+            mess = QMessageBox()
+            mess.setIcon(QMessageBox.Information)
+            mess.setText("Username or Password not found")
+            mess.setWindowTitle("Input error")
+            mess.setStandardButtons(QMessageBox.Ok)
+            mess.exec()
+            self.SignInUsername.clear()
+            self.SignInPassword.clear()
         
     def NewAccount(self):
-        self.SignUp = QtWidgets.QWidget()
-        self.uiSignUp = Ui_SignUp()
-        self.uiSignUp.setupUi(self.SignUp)
         self.SignUp.show()
         
         

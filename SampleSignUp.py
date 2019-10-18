@@ -6,10 +6,10 @@
 #
 # WARNING! All changes made in this file will be lost!
 
-
+import sqlite3 as sq
 from PyQt5 import QtCore, QtGui, QtWidgets
+from PyQt5.QtWidgets import QMessageBox 
 
-import sys
 
 
 class Ui_SignUp(object):
@@ -45,6 +45,12 @@ class Ui_SignUp(object):
         self.SignUpReEnterPassword.setObjectName("SignUpReEnterPassword")
         self.SignUpPassword.setEchoMode(QtWidgets.QLineEdit.Password)
         self.SignUpReEnterPassword.setEchoMode(QtWidgets.QLineEdit.Password)
+        self.SignUpUsername.setStyleSheet("background-color: pink;")
+        self.SignUpPassword.setStyleSheet("background-color: pink;")
+        self.SignUpReEnterPassword.setStyleSheet("background-color: pink;")
+        self.SignUpCreateAccount.setStyleSheet("background-color: pink;")
+        SignUp.setStyleSheet("background-color: blue;")
+
 
         self.retranslateUi(SignUp)
         QtCore.QMetaObject.connectSlotsByName(SignUp)
@@ -64,4 +70,52 @@ class Ui_SignUp(object):
         Password = self.SignUpPassword.text().strip()
         ReEnter = self.SignUpReEnterPassword.text().strip()
         
+        if Username == 0 or Username == "" or Password == 0 or Password == "" or ReEnter == 0 or ReEnter == "":
+            mess = QMessageBox()
+            mess.setIcon(QMessageBox.Information)
+            mess.setText("Cannot accept blank inputs")
+            mess.setWindowTitle("Input error")
+            mess.setStandardButtons(QMessageBox.Ok)
+            mess.exec()
+        elif Password != ReEnter:
+            self.SignUpUsername.clear()
+            self.SignUpPassword.clear()
+            self.SignUpReEnterPassword.clear()
+            mess = QMessageBox()
+            mess.setIcon(QMessageBox.Information)
+            mess.setText("Password does not match")
+            mess.setWindowTitle("Input error")
+            mess.setStandardButtons(QMessageBox.Ok)
+            mess.exec()
+        else:
+            self.SignUpUsername.clear()
+            self.SignUpPassword.clear()
+            self.SignUpReEnterPassword.clear()
+            try:
+                connection = sq.connect("acc.db")
+                commands = '''INSERT INTO accounts (username,password) VALUES (?,?);'''
+                cur = connection.cursor()
+                cur.execute(commands,(Username,Password))
+                #val =cur.lastrowid
+                connection.commit()
+                val = True
+            except:
+                val = False
+            if val is True:     
+                mess = QMessageBox()
+                mess.setIcon(QMessageBox.Information) 
+                mess.setText("Registration successful!")
+                mess.setWindowTitle("Register")
+                mess.setStandardButtons(QMessageBox.Ok)
+                mess.exec() 
+                
+            else:
+                mess = QMessageBox()
+                mess.setIcon(QMessageBox.Information)
+                mess.setText("Please make sure inputs are correct!")
+                mess.setWindowTitle("Input error")
+                mess.setStandardButtons(QMessageBox.Ok)
+                mess.exec()
+                
+            
         
