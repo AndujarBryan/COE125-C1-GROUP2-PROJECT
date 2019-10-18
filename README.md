@@ -85,3 +85,15 @@ Username: noot
 Password: noot
 ```
 Then, the object detection classifier program is ready.
+
+
+## Sample Outputs
+
+Able to detect book:
+![book](https://user-images.githubusercontent.com/52278031/67081439-b9d56000-f1c9-11e9-93cc-b03fade97485.png)
+
+Able to detect cellphones:
+![cell phone](https://user-images.githubusercontent.com/52278031/67081499-db364c00-f1c9-11e9-9410-227cb9385ef4.png)
+
+Able to detect bottle:
+![bottle](https://user-images.githubusercontent.com/52278031/67081547-f0ab7600-f1c9-11e9-82ec-a4a4f2a1b4f2.png)
